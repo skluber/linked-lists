@@ -39,6 +39,28 @@ const createLinkedList = () => {
             return countNodes(this.head);
         },
 
+        headNode() {
+            if (this.head === null ) return undefined;
+            return this.head
+        },
+
+        tail() {
+            if (this.head === null ) return undefined;
+            return this.findLastNode(this.head);
+        },
+
+        at(index) {
+            if (index < 0) return undefined;
+            if (this.head === null) return undefined;   
+
+            let foundNode = this.head;
+            for (let i = 0; i < index; i++) {
+                if (foundNode === null) return undefined;
+                foundNode = foundNode.nextNode;
+            }
+
+            return foundNode.value;
+        },
     }
 }
 
@@ -55,7 +77,9 @@ list.append(10);
 list.append(20);
 list.append(30);
 list.prepend(5);
-console.log("Size is: ", list.size())
-
+console.log("Size is: ", list.size());
+console.log("Head is; ", list.headNode());
+console.log("Tail is; ", list.tail());
+console.log("Node at index 1 is; ", list.at(1));
 
 console.dir(list, { depth: null });
