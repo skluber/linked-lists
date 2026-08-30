@@ -112,6 +112,60 @@ const createLinkedList = () => {
 
             return string + "null"
         },
+
+        insertAt(index, ...values) {
+            const listSize = this.size();
+            if (index < 0 || index > listSize) throw new RangeError("Index out of range");
+
+            if (index === 0) {
+                values.reverse().forEach(element => {
+                    this.prepend(element);
+                });
+                return;
+            }
+
+            if (index === listSize) {
+                values.forEach(element => {
+                    this.append(element);
+                })
+                return;
+            }
+
+            let startFromNode = this.head;
+            for (let i = 1; i < index; i++) {
+                startFromNode = startFromNode.nextNode;
+            }
+
+            const tail = startFromNode.nextNode;
+
+           values.forEach(element => {
+                const newNode = createNode(element);
+                startFromNode.nextNode = newNode;
+                startFromNode = newNode;
+            });
+
+            startFromNode.nextNode = tail;
+        },
+
+        removeAt(index) {
+            const listSize = this.size();
+            if (index < 0 || index >= listSize) throw new RangeError("Index out of range");
+
+            if (index === 0) {
+                this.head = this.head.nextNode;
+                return;
+            }
+
+            let nodeToRemove = this.head;
+            let beforeNode = null;
+            
+            for (let i = 1; i <= index; i++) {
+                beforeNode = nodeToRemove;
+                nodeToRemove = nodeToRemove.nextNode;
+            }
+
+            beforeNode.nextNode = nodeToRemove.nextNode;
+        },
     }
 }
 
@@ -127,6 +181,7 @@ const list = createLinkedList();
 list.append(10);
 list.append(20);
 list.append(30);
-list.prepend(5);
+console.log(list.toString());
 
+list.removeAt(2);
 console.log(list.toString());
