@@ -61,6 +61,57 @@ const createLinkedList = () => {
 
             return foundNode.value;
         },
+
+        pop() {
+            if (this.head === null) return undefined;
+
+            const removedNodeValue = this.head.value;
+            this.head = this.head.nextNode;
+            return removedNodeValue;
+        },
+
+        contains(value) {
+            let currentNode = this.head;
+
+            while (currentNode !== null) {
+                if (currentNode.value === value) {
+                    return true;
+                }
+
+                currentNode = currentNode.nextNode;
+            }
+
+            return false;
+        },
+
+        findIndex(value) {
+            let currentNode = this.head;
+            let index = 0;
+
+            while (currentNode !== null) {
+                if (currentNode.value === value) {
+                    return index;
+                }
+                index++;
+                currentNode = currentNode.nextNode;
+            }
+
+            return -1;
+        },
+
+        toString() {
+            if (this.head === null) return "";
+            let currentNode = this.head;
+            let string = "";
+
+        
+            while (currentNode !== null) {
+                string += `( ${currentNode.value} ) -> `;
+                currentNode = currentNode.nextNode;
+            }
+
+            return string + "null"
+        },
     }
 }
 
@@ -77,9 +128,5 @@ list.append(10);
 list.append(20);
 list.append(30);
 list.prepend(5);
-console.log("Size is: ", list.size());
-console.log("Head is; ", list.headNode());
-console.log("Tail is; ", list.tail());
-console.log("Node at index 1 is; ", list.at(1));
 
-console.dir(list, { depth: null });
+console.log(list.toString());
